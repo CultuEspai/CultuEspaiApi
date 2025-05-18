@@ -119,7 +119,7 @@ namespace CultuEspaiApi.Controllers
 
         // POST: api/Usuaris
         [ResponseType(typeof(Usuaris))]
-        public IHttpActionResult PostUsuaris(Usuaris usuari)
+        public async Task<IHttpActionResult> PostUsuaris(Usuaris usuari)
         {
             if (!ModelState.IsValid)
             {
@@ -140,7 +140,7 @@ namespace CultuEspaiApi.Controllers
 
             try
             {
-                db.SaveChangesAsync();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateException)
             {

@@ -18,7 +18,7 @@ namespace CultuEspaiApi.Controllers
     {
         private espaiCulturalEntities db = new espaiCulturalEntities();
 
-        // GET: api/Entrades/5 by id user
+        // GET: api/Entrades/user/5 by id user
         [HttpGet]
         [Route("api/Entrades/user/{id}")]
         public IHttpActionResult GetEntradesByIdUser(int id)
@@ -27,6 +27,27 @@ namespace CultuEspaiApi.Controllers
 
             var entrades = db.Entrades
                 .Where(e => e.UsuariID == id)
+                .Select(e => new
+                {
+                    e.EntradaID,
+                    e.UsuariID,
+                    e.EsdevenimentID,
+                    e.Quantitat,
+                    e.NumeroButaca
+                }).ToList();
+
+            return Ok(entrades);
+        }
+
+        // GET: api/Entrades/event/5 by id event
+        [HttpGet]
+        [Route("api/Entrades/event/{id}")]
+        public IHttpActionResult GetEntradesByIdEvent(int id)
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+
+            var entrades = db.Entrades
+                .Where(e => e.EsdevenimentID == id)
                 .Select(e => new
                 {
                     e.EntradaID,

@@ -44,6 +44,8 @@ namespace CultuEspaiApi.Controllers
         }
 
         // PUT: api/Esdeveniments/5
+        [HttpPut]
+        [Route("api/Esdeveniments/{id}")]
         [ResponseType(typeof(void))]
         public async Task<IHttpActionResult> PutEsdeveniments(int id, Esdeveniments esdeveniments)
         {
